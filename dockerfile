@@ -67,3 +67,5 @@ ENV LD_LIBRARY_PATH=/usr/local/lib
 ENV LIBPATH=/usr/local/lib
 ENV PYTHONPATH=/usr/local/lib
 ENV SHLIB_PATH=/usr/local/lib
+
+#Run Docker to get the files to the container:   docker run --rm -it -v $PWD:/tmp nooraangelva/global_fit:latest /bin/bash
