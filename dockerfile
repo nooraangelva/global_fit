@@ -1,43 +1,27 @@
 # Environment: ROOT6 on Ubuntu/Bionic:
-FROM ubuntu:bionic
-RUN apt-get -y update && \
-    apt-get -y install \
-        binutils \
+FROM ubuntu:focal
+RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive \
+    apt-get -y install --no-install-recommends\
         build-essential \
-        cmake \
         cpp \
-        dpkg-dev \
         c++17 \
         python3 \
-        g++ \
-        gcc \
         gfortran \
         git \
-        graphviz-dev \
-        libavahi-compat-libdnssd-dev \
-        libffi-dev \
-        libfftw3-dev \
-        libftgl-dev \
-        libglew1.5-dev \
-        libgsl0-dev \
-        libkrb5-dev \
-        libldap2-dev \
-        libmysqlclient-dev \
-        libpcre3-dev \
-        libpq-dev \
-        libqt4-dev \
-        libssl-dev \
+        dpkg-dev \
+        cmake\
+        g++ \
+        gcc \
+        binutils \
         libx11-dev \
-        libxext-dev \
-        libxext-dev \
+        libxpm-dev \
         libxft-dev \
-        libxml2-dev \
-        libxpm-dev \
-        libxpm-dev \
+        libxext-dev \
+        libssl-dev \
         make \
         openssl \
-        python-dev \
-        python-pip \
+        python3-dev \
+        python3-pip \
         xlibmesa-glu-dev \
         zlib1g-dev && \
     rm -rf /var/lib/apt/lists/* && \
@@ -49,7 +33,7 @@ RUN apt-get -y update && \
 
 
 ENV ROOTSYS /usr/local
-RUN git clone --quiet --depth 1 --branch v6-20-00 http://root.cern.ch/git/root.git /code/root && \
+RUN git clone --quiet --depth 1 --branch v6-24-00 http://root.cern.ch/git/root.git /code/root && \
     cd /code && \
     mkdir _build && \
     cd _build && \
@@ -59,7 +43,7 @@ RUN git clone --quiet --depth 1 --branch v6-20-00 http://root.cern.ch/git/root.g
     cd / && \
     rm -rf /code
 
-# helpful environment variables to point to local ROOT installation
+# Set helpful environment variables to point to local ROOT installation
 ENV CMAKE_PREFIX_PATH=/usr/local
 ENV DYLD_LIBRARY_PATH=/usr/local/lib
 ENV JUPYTER_PATH=/usr/local/etc/notebook
@@ -67,5 +51,3 @@ ENV LD_LIBRARY_PATH=/usr/local/lib
 ENV LIBPATH=/usr/local/lib
 ENV PYTHONPATH=/usr/local/lib
 ENV SHLIB_PATH=/usr/local/lib
-
-#Run Docker to get the files to the container:   docker run --rm -it -v $PWD:/tmp nooraangelva/global_fit:latest /bin/bash
